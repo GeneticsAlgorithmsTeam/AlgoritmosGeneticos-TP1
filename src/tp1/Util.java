@@ -39,7 +39,7 @@ public class Util {
     static void showResults(ArrayList<StadisticUnit> estadistica) {
          try {
             
-            File newTextFile = new File("C:\\Users\\Pedro\\Documents/salida.txt");
+            File newTextFile = new File("C:\\Users\\Pedro\\Documents/salida.csv");
 
             FileWriter fw = new FileWriter(newTextFile);
             
@@ -50,9 +50,12 @@ public class Util {
             df.setRoundingMode(RoundingMode.DOWN);
             
              int indice =0;
+             fw.write("Generacion"+";"+"Maximo"+";"+"Minimo"+";"+"Promedio"+'\n');
         for (StadisticUnit stadisticUnit : estadistica) {
             System.out.println("Poblacion: "+indice +" Maximo: " + stadisticUnit.getMax_fo() + " Minimo: " + stadisticUnit.getMin_fo() + " Promedio: " + stadisticUnit.getPromedio());
-            fw.write("["+indice+","+df.format(stadisticUnit.getMax_fo())+","+df.format(stadisticUnit.getMin_fo())+","+df.format(stadisticUnit.getPromedio())+"],");
+           
+            fw.write(indice+";"+df.format(stadisticUnit.getMax_fo())+";"+df.format(stadisticUnit.getMin_fo())+";"+df.format(stadisticUnit.getPromedio())+'\n');
+            
             indice++;
             
         }
