@@ -7,6 +7,7 @@ package tp1;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -56,8 +57,10 @@ public class Poblacion {
 
     ArrayList<Cromosoma> generarNuevaPoblacion() 
     {
-        ArrayList<Cromosoma> nuevos_cromosomas = new ArrayList<Cromosoma>();
-        for (int i = 0; i < (cromosomas.size()/2); i++) {
+        ArrayList<Cromosoma> nuevos_cromosomas = new ArrayList<>();
+        nuevos_cromosomas.addAll(getParElitista());
+        // En vez de 10 ahora se utilizan 8 cromosomas. Porque dos pertenecen al grupo elitista.
+        for (int i = 0; i < ((cromosomas.size()-2)/2); i++) {
             Cromosoma c1= seleccionarCromosoma();
             Cromosoma c2= seleccionarCromosoma();
             nuevos_cromosomas.add(mutacion(crossover(c1,c2).get(0)));
@@ -126,6 +129,15 @@ public class Poblacion {
 
      ArrayList<Cromosoma> getIndividuos() {
         return cromosomas;
+    }
+     /// Toma los dos mejores de la poblacion y los devuelve
+    private ArrayList<Cromosoma> getParElitista() {
+        ArrayList<Cromosoma> croms = new ArrayList<>(cromosomas);
+        Collections.sort(croms); //Ordena los cromosomas de menor a mayor segun la funcion objetivo. Ver metodo compareTo en clase Cromosoma
+         ArrayList<Cromosoma> parCromosomas = new ArrayList<>();
+         parCromosomas.add(croms.get(croms.size()-1));
+         parCromosomas.add(croms.get(croms.size()-2));
+        return parCromosomas;
     }
 
     

@@ -9,13 +9,15 @@ package tp1;
  *
  * @author Pedro
  */
-public class Cromosoma {
-    private int[] genes;
-    private double representacionDecimal;
+public final class Cromosoma implements Comparable<Cromosoma>{
+    private final int[] genes;
+    private final double representacionDecimal;
+    private final double fobjValue;
     
     public Cromosoma(int[] genes) {
         this.genes = genes;
         this.representacionDecimal = pasaje();
+        this.fobjValue = this.evalFuncionObjetivo();
     }
 
     double evalFuncionObjetivo() {
@@ -42,6 +44,11 @@ public class Cromosoma {
     int[] getGenes() {
  
         return genes;
+    }
+
+    @Override
+    public int compareTo(Cromosoma o) {
+        return new Double(this.evalFuncionObjetivo()).compareTo(new Double(o.evalFuncionObjetivo()));
     }
     
 
